@@ -1,5 +1,5 @@
 # Sopitas
-
+# You can check the Axe suggestions for better accesibility for vissually impaired people. Your contrasts are bad and not every component is properly tagged.
 Web application "Sopitas", it is a MERN application (MongoDB, Express, React, NodeJS). In this application the idea is to have a little ecommerce to buy some products with a supscription plan.
 
 ![sopitasScrennShot](https://raw.githubusercontent.com/cabeltran10/sopitas/master/front/src/img/Sopitas.gif)
