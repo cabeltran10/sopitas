@@ -15,7 +15,9 @@ const BuyForm = props => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:3001");
+    let HOST = window.location.origin.replace(/^http/, 'ws');
+    let ws = new WebSocket(HOST);
+    //const ws = new WebSocket("ws://localhost:3001");
 
     ws.onopen = () => {
       console.log("Connected to ws");

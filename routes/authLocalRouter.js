@@ -7,7 +7,7 @@ const User = require("../models/user-local-model");
 
 require("dotenv").config();
 
-const frontURL = process.env.FRONT_URL || "http://localhost:3000";
+const frontURL = process.env.FRONT_URL || "http://sopitas-app.herokuapp.com";
 
 // Initiates basic sign in with local flow
 router.get(

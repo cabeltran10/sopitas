@@ -119,8 +119,8 @@ app.post("/create-checkout-session", async (req, res) => {
       }
     ],
     // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
-    success_url: `http://localhost:3000`,
-    cancel_url: `http://localhost:3001`
+    success_url: `http://sopitas-app.herokuapp.com`,
+    cancel_url: `http://sopitas-app.herokuapp.com`
   });
 
   res.send({
