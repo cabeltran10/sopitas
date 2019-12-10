@@ -94,7 +94,7 @@ const BuyForm = props => {
   const orderNow = () => {
     var frecuency = document.getElementsByName("frecuency")[0].value;
     var date = new Date()
-    var data = { plan: plan, frecuency: frecuency, flavors: flavorsSelected, user:user._id, date};
+    var data = { plan: plan, frecuency: frecuency, flavors: flavorsSelected, user:user.googleId, date};
     console.log("data ordernowm", data);
 
     fetch("/order", {
