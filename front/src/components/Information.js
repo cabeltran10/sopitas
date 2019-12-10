@@ -28,11 +28,19 @@ class Information extends Component {
             alt="Sopitas history image"
             className="banner-img"
           />
-          <p className="p-text center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            commodi, laudantium tenetur fugiat id magni totam mollitia
-            asperiores aliquam molestias porro, aspernatur illo quos sunt veniam
-            perferendis consequatur quod obcaecati?
+          <p className="p-text justify">
+            Sopitas are healthy soups packaged and frozen individually to be
+            enjoyed as a snack or a meal. Each portion has only around 100
+            calories and 2-4 vegetables servings. We consider your busy life,
+            that’s why we make portions ready to go. All you need to do is warm
+            it up and it’ll be ready in under five minutes. Even more important,
+            we are concerned about you having a healthy lifestyle. That’s why we
+            care about providing the best quality foods based on only natural
+            and nutritious ingredients.
+            <br />
+            The best of all is that Sopitas tastes amazing! Come try our
+            products and you’ll see that healthy tastes delicious! For your
+            convenience we deliver for free to the door of your home.
           </p>
         </div>
 
