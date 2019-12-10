@@ -32,7 +32,7 @@ const BuyForm = props => {
       .then(_user => {
         if (_user) {
           setUser(_user);
-          //console.log(_user);
+          console.log(_user);
         }
       });
     fetch("varieties")
@@ -94,7 +94,7 @@ const BuyForm = props => {
   const orderNow = () => {
     var frecuency = document.getElementsByName("frecuency")[0].value;
     var date = new Date()
-    var data = { plan: plan, frecuency: frecuency, flavors: flavorsSelected, user:user._id, date:new Date()};
+    var data = { plan: plan, frecuency: frecuency, flavors: flavorsSelected, user:user._id, date};
     console.log("data ordernowm", data);
 
     fetch("/order", {
