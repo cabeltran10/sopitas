@@ -78,7 +78,6 @@ app.use(
 );
 
 
-
 app.get("/config", (req, res) => {
   res.send({
     publicKey: process.env.STRIPE_PUBLISHABLE_KEY,

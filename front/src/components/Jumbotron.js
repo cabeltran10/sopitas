@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "../App";
 
 class Jumbotron extends Component {
@@ -9,9 +10,9 @@ class Jumbotron extends Component {
           <h3>Nutritious food for your busy lifestyle</h3>
         </div>
         <div className="jumbotronButton">
-          <a className="orderButton" href="/order">
+          <Link to={"/order"} className="orderButton">
             ORDER NOW
-          </a>
+          </Link>
         </div>
       </div>
     );

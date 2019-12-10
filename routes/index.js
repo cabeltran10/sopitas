@@ -33,7 +33,7 @@ router.get("/varieties", (req, res) => {
 router.get("/orders", (req, res) => {
   console.log("Get orders");
   myMongoLib
-    .getOrders()
+    .getOrders(req.query.user || '')
     .then(docs => {
       console.log("docs");
       res.send(docs);

@@ -1,9 +1,9 @@
-import React, {useEffect,useState} from 'react';
-const MyOrders = () => {
-
+import React, { useEffect, useState } from "react";
+const MyOrders = props => {
   const [orders, setOrders] = useState([]);
   const [err, setErr] = useState("");
 
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:3001");
 
@@ -15,7 +15,13 @@ const MyOrders = () => {
         setOrders(JSON.parse(msg.data));
       };
     };
-    fetch("orders")
+    fetch("/auth/getUser")
+      .then(res => res.json())
+      .then(_user => {
+        if (_user) {
+          setUser(_user);
+          console.log(_user);
+          fetch("orders?user="+_user._id)
       .then(res => res.json())
       .then(data => {
         console.log("Got data", data);
@@ -25,27 +31,44 @@ const MyOrders = () => {
           setOrders(data);
         }
       });
+        }
+      });
+
+
   }, []);
 
-return (
-<table className="table">
-  <thead>
-  <tr>
-    <th>Plan</th>
-    <th>Frecuency</th>
-    <th>Flavors</th>
-  </tr>
-  </thead>
-  <tbody>
-{orders.map((d,i) => {
-return <tr key={d._id}>
-  <td>{d.plan+" Sopitas"}</td>
-  <td>{d.frecuency}</td>
-  <td>{d.flavors[0]["name"]+" "+d.flavors[0]["value"]}<br></br>{d.flavors[1]["name"]+" "+d.flavors[1]["value"]}<br></br>{d.flavors[2]["name"]+" "+d.flavors[2]["value"]}</td>
-
-</tr>
-})
-}
-</tbody>
-</table>)}
+  return (
+    <div className="container">
+      <h2 className="color4 tittle">MY ORDERS</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <th className="p-text">Plan</th>
+            <th className="p-text">Frequency</th>
+            <th className="p-text">Flavours</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((d, i) => {
+            return (
+              <tr key={d._id}>
+                <td>{d.plan + " Sopitas"}</td>
+                <td>{d.frecuency + " weeks"}</td>
+                <td>
+                  {d.flavors.map((f, j) => {
+                    return (
+                      <p>
+                        {f.name} ({f.value})
+                      </p>
+                    );
+                  })}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 export default MyOrders;

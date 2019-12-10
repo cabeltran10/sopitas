@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import "../App";
 
@@ -115,9 +116,9 @@ class Information extends Component {
           </div>
         </div>
         <div className="order-now-button">
-          <a className="orderButton" href="/order">
+          <Link to={"/order"} className="orderButton">
             ORDER NOW
-          </a>
+          </Link>
         </div>
       </div>
     );

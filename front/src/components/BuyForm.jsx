@@ -8,11 +8,11 @@ import plan3 from "../img/plans/plan-3.png";
 
 import MyOrders from "../components/MyOrders";
 
-
 const BuyForm = props => {
   const [flavors, setFlavors] = useState([]);
   const [plan, setPlan] = useState("5");
   const [flavorsSelected, setFlavorsSelected] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:3001");
@@ -25,7 +25,14 @@ const BuyForm = props => {
         setFlavors(JSON.parse(msg.data));
       };
     };
-
+    fetch("/auth/getUser")
+      .then(res => res.json())
+      .then(_user => {
+        if (_user) {
+          setUser(_user);
+          //console.log(_user);
+        }
+      });
     fetch("varieties")
       .then(res => res.json())
       .then(data => {
@@ -41,7 +48,8 @@ const BuyForm = props => {
           setFlavorsSelected(arr);
         }
       });
-  }, []);
+  }
+  , []);
 
   const onImageClick1 = () => {
     // document.getElementsByClassName("stepOne");
@@ -68,8 +76,7 @@ const BuyForm = props => {
     console.log("PROBANDO IMAGEN 3");
     document.getElementsByName("5")[0].className = "w3-light-blue w3-margin";
     document.getElementsByName("10")[0].className = "w3-light-blue w3-margin";
-    document.getElementsByName("15")[0].className =
-      "w3-light-blue-selected w3-margin";
+    document.getElementsByName("15")[0].className = "w3-light-blue-selected w3-margin";
 
     setPlan("15");
   };
@@ -84,7 +91,8 @@ const BuyForm = props => {
 
   const orderNow = () => {
     var frecuency = document.getElementsByName("frecuency")[0].value;
-    var data = { plan: plan, frecuency: frecuency, flavors: flavorsSelected };
+    var date = new Date()
+    var data = { plan: plan, frecuency: frecuency, flavors: flavorsSelected, user:user._id, date:new Date()};
     console.log("data ordernowm", data);
 
     fetch("/order", {
@@ -97,26 +105,21 @@ const BuyForm = props => {
       .then(res => res.json())
       .catch(error => console.error("Error:", error))
       .then(response => console.log("Success:", response));
-
   };
 
-
-  function createCheckoutSession (stripe){
-
+  function createCheckoutSession(stripe) {
     var frecuency = document.getElementsByName("frecuency")[0].value;
-    var aux = 30.0
-    var urlImage =""
-    if(plan == 5){
-      aux= 2500.0
-      urlImage="https://i.ibb.co/zhNnHn7/plan-1.png"
-    }
-    else if(plan==10){
-      aux = 4500.0
-      urlImage="https://i.ibb.co/z63KYKS/plan-2.png"
-    }
-    else{
-      aux=6000.0
-      urlImage="https://i.ibb.co/6NFjN0q/plan-3.png"
+    var aux = 30.0;
+    var urlImage = "";
+    if (plan == 5) {
+      aux = 2500.0;
+      urlImage = "https://i.ibb.co/zhNnHn7/plan-1.png";
+    } else if (plan == 10) {
+      aux = 4500.0;
+      urlImage = "https://i.ibb.co/z63KYKS/plan-2.png";
+    } else {
+      aux = 6000.0;
+      urlImage = "https://i.ibb.co/6NFjN0q/plan-3.png";
     }
 
     //var data = { plan: plan, frecuency: frecuency, flavors: flavorsSelected };
@@ -126,17 +129,16 @@ const BuyForm = props => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name:plan,
+        name: plan,
         quantity: 1,
         cost: aux,
         image: urlImage
-
       })
     }).then(function(result) {
-      orderNow();
+
       return result.json();
-    })
-  };
+    }).then(orderNow());
+  }
 
   /* Get your Stripe publishable key to initialize Stripe.js */
   fetch("/config")
@@ -147,29 +149,25 @@ const BuyForm = props => {
       window.config = json;
       var stripe = window.Stripe(window.config.publicKey);
 
-      document.querySelector("#orderButton").addEventListener("click", function(evt) {
-        createCheckoutSession().then(function(data) {
-          stripe
-            .redirectToCheckout({
-              sessionId: data.sessionId
-            })
-            .then(
-              window.handleResult
+      document
+        .querySelector("#orderButton")
+        .addEventListener("click", function(evt) {
+          createCheckoutSession().then(function(data) {
+            stripe
+              .redirectToCheckout({
+                sessionId: data.sessionId
 
-            );
+              })
+              .then(window.handleResult);
+          })
         });
-      });
     });
-
-
-
-
 
   return (
     <div className="container" style={{ marginTop: 10 }}>
       <ol>
         <li>
-          <h2 className="color4">CHOOSE YOUR PLAN</h2>
+          <h2 className="color4 tittle">CHOOSE YOUR PLAN</h2>
           <div className="divider"></div>
           <div className="grilla">
             <div
@@ -205,7 +203,7 @@ const BuyForm = props => {
         </li>
 
         <li>
-          <h2 className="color4">CHOOSE YOUR FRECUENCY</h2>
+          <h2 className="color4 tittle">CHOOSE YOUR FREQUENCY</h2>
           <div className="divider"></div>
           <div className="stepTwo">
             <form className="aa">
@@ -224,12 +222,13 @@ const BuyForm = props => {
             </form>
           </div>
         </li>
-        <br></br>
         <li>
-          <h2 className="color4">CHOOSE FLAVORS</h2>
+          <h2 className="color4 tittle">CHOOSE FLAVORS</h2>
           <div className="divider"></div>
+          <p className="p-text">
+            Please select the amount you want from each flavour
+          </p>
         </li>
-        <br></br>
       </ol>
       <div className="grilla">
         {flavors.map((p, i) => (
@@ -245,7 +244,7 @@ const BuyForm = props => {
 
       <div className="btn-container">
         <button type="button" className="orderButton" id="orderButton">
-          ORDER NOW
+          CHECK OUT
         </button>
       </div>
     </div>

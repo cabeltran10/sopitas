@@ -9,7 +9,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const backURL = process.env.BACK_URL || "http://localhost:3001";
+    const backURL = "http://localhost:3001";
     return (
       <div className="container-fluid sticky-top">
         <div className="navbar-row">
@@ -17,15 +17,24 @@ class Navbar extends Component {
             <Link to={"/"} className="navbar-brand">
               Sopitas
             </Link>
+            {this.props.user?(
             <Link to={"/order"} className="nav-link">
               ORDER
-            </Link>
+            </Link>):(<a></a>)
+            }
             <Link to={"/varieties"} className="nav-link">
               VARIETIES
             </Link>
             <Link to={"/ourHistory"} className="nav-link">
               OUR HISTORY
             </Link>
+            {this.props.user ? (
+              <Link to={"/myOrders"} className="nav-link">
+                MY ORDERS
+              </Link>
+            ) : (
+              <a></a>
+            )}
             {!this.props.user ? (
               <a className="nav-link" href={`${backURL}/auth/google`}>
                 LOGIN WITH GOOGLE

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import "../../App";
 
@@ -60,9 +61,9 @@ class Variety extends Component {
           </div>
 
           <div className="btn-container">
-            <a className="orderButton" href="/order">
+            <Link to={"/order"} className="orderButton">
               ORDER NOW
-            </a>
+            </Link>
           </div>
         </div>
       </div>
