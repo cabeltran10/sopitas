@@ -101,17 +101,44 @@ const MyMongoLib = function() {
           return;
         }
         console.log("Connected correctly to server");
+        if(req.body["flavors"].length>0){
 
         const db = client.db("sopitas");
 
         // Insert a single document
         const testCol = db.collection("orders");
+        var id=0
+        a= testCol.find({user:req.body["user"]}, (err,result)=>{
+          for(const act in result.body){
+            if((act["date"]-new Date()/1000<=100)){
+              console.log("e")
+              id=act["date"]
+             // return
+            }
+          }
+          if(id!=0)
+          {
+            return testCol.findOneAndReplace({date:id},req.body, (err, result)=> {
+              if (err) return res.status(400).json({ message: err.message });
 
-        return testCol.insert(req.body, (err, result) => {
-          if (err) return res.status(400).json({ message: err.message });
+              res.status(201).json(req.body);}
+            )
+          }
+          else{
+            return testCol.insert(req.body, (err, result) => {
+              if (err) return res.status(400).json({ message: err.message });
 
-          res.status(201).json(req.body);
-        });
+              res.status(201).json(req.body);
+            });
+          }
+
+
+        }
+        )
+
+
+
+        }
       });
     });
 

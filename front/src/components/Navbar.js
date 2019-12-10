@@ -17,9 +17,11 @@ class Navbar extends Component {
             <Link to={"/"} className="navbar-brand">
               Sopitas
             </Link>
+            {this.props.user?(
             <Link to={"/order"} className="nav-link">
               ORDER
-            </Link>
+            </Link>):(<a></a>)
+            }
             <Link to={"/varieties"} className="nav-link">
               VARIETIES
             </Link>

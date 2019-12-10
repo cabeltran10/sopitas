@@ -103,46 +103,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-      var stripe = 1;
-      var createCheckoutSession = function(stripe) {
-        //var inputEl = "1";
-        //var quantity = parseInt(inputEl.value);
 
-        return fetch("/create-checkout-session", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            quantity: 1
-          })
-        }).then(function(result) {
-          return result.json();
-        });
-      };
-
-      /* Get your Stripe publishable key to initialize Stripe.js */
-      fetch("/config")
-        .then(function(result) {
-          return result.json();
-        })
-        .then(function(json) {
-          window.config = json;
-          stripe = Stripe(config.publicKey);
-          //updateQuantity();
-          document
-            .querySelector("#orderButton")
-            .addEventListener("click", function(evt) {
-              createCheckoutSession().then(function(data) {
-                stripe
-                  .redirectToCheckout({
-                    sessionId: data.sessionId
-                  })
-                  .then(handleResult);
-              });
-            });
-        });
-    </script>
   </body>
 </html>

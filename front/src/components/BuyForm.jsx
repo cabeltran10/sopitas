@@ -76,8 +76,7 @@ const BuyForm = props => {
     console.log("PROBANDO IMAGEN 3");
     document.getElementsByName("5")[0].className = "w3-light-blue w3-margin";
     document.getElementsByName("10")[0].className = "w3-light-blue w3-margin";
-    document.getElementsByName("15")[0].className =
-      "w3-light-blue-selected w3-margin";
+    document.getElementsByName("15")[0].className = "w3-light-blue-selected w3-margin";
 
     setPlan("15");
   };
@@ -92,7 +91,8 @@ const BuyForm = props => {
 
   const orderNow = () => {
     var frecuency = document.getElementsByName("frecuency")[0].value;
-    var data = { plan: plan, frecuency: frecuency, flavors: flavorsSelected, user:user._id };
+    var date = new Date()
+    var data = { plan: plan, frecuency: frecuency, flavors: flavorsSelected, user:user._id, date:new Date()};
     console.log("data ordernowm", data);
 
     fetch("/order", {
@@ -135,9 +135,9 @@ const BuyForm = props => {
         image: urlImage
       })
     }).then(function(result) {
-      orderNow();
+
       return result.json();
-    });
+    }).then(orderNow());
   }
 
   /* Get your Stripe publishable key to initialize Stripe.js */
@@ -156,9 +156,10 @@ const BuyForm = props => {
             stripe
               .redirectToCheckout({
                 sessionId: data.sessionId
+
               })
               .then(window.handleResult);
-          });
+          })
         });
     });
 
