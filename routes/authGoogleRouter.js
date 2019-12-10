@@ -4,7 +4,7 @@ const passport = require("passport");
 
 require("dotenv").config();
 
-const frontURL = process.env.FRONT_URL || "http://sopitas-app.herokuapp.com";
+const frontURL = "http://sopitas-app.herokuapp.com";
 
 // Initiates basic Sign in with Google flow
 router.get(
