@@ -9,7 +9,10 @@ const MyMongoLib = function() {
   const dbName = "sopitas";
   // Create a new MongoClient
   const client = new MongoClient(url, { useUnifiedTopology: true });
-
+  let conn = MongoClient.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
   MyMongoLib.getDocs = () =>
     new Promise((resolve, reject) => {
       // Use connect method to connect to the Server
