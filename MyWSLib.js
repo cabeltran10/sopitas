@@ -13,6 +13,7 @@ const MyWSLib = function() {
       console.log("accepting connection", ws);
       clients.push(ws);
     });
+    //En caso de que el cliente se vaya deben cerrar el socket.
   };
 
   MyWSLib.notifyAll = data => {
