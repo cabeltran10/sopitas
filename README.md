@@ -4,7 +4,7 @@ Web application "Sopitas", it is a MERN application (MongoDB, Express, React, No
 
 ![sopitasScrennShot](https://raw.githubusercontent.com/cabeltran10/sopitas/master/front/src/img/Sopitas.gif)
 
-<hr>
+<hr>aaaa
 
 ## Running the website
 
