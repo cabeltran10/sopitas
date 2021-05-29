@@ -30,7 +30,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "stripe": "^7.14.0",
-    "ws": "^7.2.0",
+    "ws": "^7.4.6",
     "yarn": "^1.19.1"
   },
   "devDependencies": {
